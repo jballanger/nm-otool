@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:36:14 by julien            #+#    #+#             */
-/*   Updated: 2018/06/08 17:27:23 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/14 11:26:50 by jballang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	*get_ptr(char *name)
 
 void	ft_nm(char *name)
 {
-	void			*ptr;
-	int	magic_number;
+	void	*ptr;
+	int		magic_number;
 
 	if (!(ptr = get_ptr(name)))
 		return ;
