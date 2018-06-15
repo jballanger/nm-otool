@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 17:41:41 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/15 19:20:22 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@ typedef struct	s_file
 	t_symbol	*symbol;
 }				t_file;
 
+void	handle(char *ptr);
 void    handle_64(char *ptr);
-void	store_sect(t_file **file, struct segment_command_64 *seg);
+void	store_sect(t_file **file, struct segment_command *seg);
+void	store_sect_64(t_file **file, struct segment_command_64 *seg);
 void	process_symbol(t_file **file, struct symtab_command *symtab, char *ptr);
+void	process_symbol_64(t_file **file, struct symtab_command *symtab, char *ptr);
 void	sort_symbol(t_symbol **symbol);
 
 #endif

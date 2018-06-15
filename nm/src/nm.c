@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:36:14 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 17:51:31 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/15 19:28:48 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int		valid_type(unsigned int m, char *name)
 	if (!IS_32(m) && !IS_64(m) &&\
 		!IS_FAT_32(m) && !IS_FAT_64(m))
 	{
-		ft_putstr("ft_nm: ");
-		ft_putstr(name);
-		ft_putendl(" The file was not recognized as a valid object file\n");
+		ft_putstr_fd("ft_nm: ", 2);
+		ft_putstr_fd(name, 2);
+		ft_putendl_fd(" The file was not recognized as a valid object file\n", 2);
 		return (0);
 	}
 	return (1);
@@ -71,10 +71,10 @@ void	ft_nm(char *name, int n)
 		ft_putstr(name);
 		ft_putendl(":");
 	}
-	if (IS_64(magic_number))
+	if (IS_32(magic_number))
+		handle(ptr);
+	else if (IS_64(magic_number))
 		handle_64(ptr);
-	else if (IS_32(magic_number))
-		ft_putendl("handle 32");
 	else if (IS_FAT_32(magic_number))
 		ft_putendl("handle fat 32");
 	else if (IS_FAT_64(magic_number))

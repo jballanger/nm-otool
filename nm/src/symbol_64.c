@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbol.c                                           :+:      :+:    :+:   */
+/*   symbol_64.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/15 14:25:00 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 19:22:01 by julien           ###   ########.fr       */
+/*   Created: 2018/06/15 19:19:39 by julien            #+#    #+#             */
+/*   Updated: 2018/06/15 19:23:25 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-char	get_symbol_sect(t_sect *sect, uint8_t n_sect)
+char	get_symbol_sect_64(t_sect *sect, uint8_t n_sect)
 {
 	t_sect	*tmp;
 	char	type;
@@ -39,7 +39,7 @@ char	get_symbol_sect(t_sect *sect, uint8_t n_sect)
 	return (type);
 }
 
-char	get_symbol_type(struct nlist nlist, t_sect *sect)
+char	get_symbol_type_64(struct nlist_64 nlist, t_sect *sect)
 {
 	t_sect	*s;
 	char	type;
@@ -57,7 +57,7 @@ char	get_symbol_type(struct nlist nlist, t_sect *sect)
 		else if (type == N_ABS)
 			type = 'a';
 		else if (type == N_SECT)
-			type = get_symbol_sect(sect, nlist.n_sect);
+			type = get_symbol_sect_64(sect, nlist.n_sect);
 		else if (type == N_INDR)
 			type = 'i';
 		else
@@ -68,7 +68,7 @@ char	get_symbol_type(struct nlist nlist, t_sect *sect)
 	return (type);
 }
 
-void	push_symbol(t_symbol *head, t_symbol *symbol)
+void	push_symbol_64(t_symbol *head, t_symbol *symbol)
 {
 	t_symbol	*tmp;
 
@@ -78,7 +78,7 @@ void	push_symbol(t_symbol *head, t_symbol *symbol)
 	tmp->next = symbol;
 }
 
-void	store_symbol(t_file **file, struct nlist nlist, char *s_table)
+void	store_symbol_64(t_file **file, struct nlist_64 nlist, char *s_table)
 {
 	t_file		*f;
 	t_symbol	*symbol;
@@ -86,19 +86,19 @@ void	store_symbol(t_file **file, struct nlist nlist, char *s_table)
 	f = *file;
 	symbol = malloc(sizeof(t_symbol));
 	symbol->name = ft_strdup((s_table + nlist.n_un.n_strx));
-	symbol->type = get_symbol_type(nlist, f->sect);
+	symbol->type = get_symbol_type_64(nlist, f->sect);
 	symbol->value = nlist.n_value;
 	symbol->next = NULL;
 	if (!f->symbol)
 		f->symbol = symbol;
 	else
-		push_symbol(f->symbol, symbol);
+		push_symbol_64(f->symbol, symbol);
 }
 
-void	process_symbol(t_file **file, struct symtab_command *symtab, char* ptr)
+void	process_symbol_64(t_file **file, struct symtab_command *symtab, char* ptr)
 {
 	uint32_t		i;
-    struct nlist	*symbol_table;
+    struct nlist_64	*symbol_table;
     char			*string_table;
 
 	i = 0;
@@ -106,7 +106,7 @@ void	process_symbol(t_file **file, struct symtab_command *symtab, char* ptr)
     string_table = (void*)ptr + symtab->stroff;
 	while (i < symtab->nsyms && file)
 	{
-		store_symbol(file, symbol_table[i], string_table);
+		store_symbol_64(file, symbol_table[i], string_table);
 		i += 1;
 	}
 }
