@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:36:14 by julien            #+#    #+#             */
-/*   Updated: 2018/06/14 11:26:50 by jballang         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:43:54 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*get_ptr(char *name)
 	{
 		ft_putstr("ft_nm: ");
 		ft_putstr(name);
-		ft_putendl(": Couldn't open.");
+		ft_putendl(": No such file or directory.");
 		return (NULL);
 	}
 	if (fstat(fd, &file) < 0)
@@ -42,7 +42,7 @@ void	*get_ptr(char *name)
 	return (ptr);
 }
 
-void	ft_nm(char *name)
+void	ft_nm(char *name, int n)
 {
 	void	*ptr;
 	int		magic_number;
@@ -50,6 +50,12 @@ void	ft_nm(char *name)
 	if (!(ptr = get_ptr(name)))
 		return ;
 	magic_number = *(int*)ptr;
+	if (n > 1)
+	{
+		ft_putchar('\n');
+		ft_putstr(name);
+		ft_putendl(":");
+	}
 	if (magic_number == (int)MH_MAGIC_64)
 		handle_64(ptr);
 }
@@ -60,12 +66,12 @@ int main(int ac, char **av)
 
 	i = 1;
 	if (ac < 2)
-		ft_nm("a.out");
+		ft_nm("a.out", 1);
 	else
 	{
 		while (i < ac)
 		{
-			ft_nm(av[i]);
+			ft_nm(av[i], (ac - 1));
 			i += 1;
 		}
 	}
