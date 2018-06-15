@@ -1,7 +1,10 @@
 NAME = ft_nm
 LIBFT = lft
 SRC_NAME = nm.c\
-			handle.c
+			handle.c\
+			sect.c\
+			symbol.c\
+			sort.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
