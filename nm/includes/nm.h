@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 15:13:00 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/15 17:41:41 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@
 # include <sys/stat.h>
 # include <mach-o/loader.h>
 # include <mach-o/nlist.h>
+# include <mach-o/fat.h>
 # include <fcntl.h>
+
+# define IS_32(m) ((m == MH_MAGIC || m == MH_CIGAM) ? 1 : 0)
+# define IS_64(m) ((m == MH_MAGIC_64 || m == MH_CIGAM_64) ? 1 : 0)
+# define IS_FAT_32(m) ((m == FAT_MAGIC || m == FAT_CIGAM) ? 1 : 0)
+# define IS_FAT_64(m) ((m == FAT_MAGIC_64 || m == FAT_CIGAM_64) ? 1 : 0)
 
 typedef struct		s_sect
 {
