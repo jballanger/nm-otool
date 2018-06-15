@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:24:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 15:16:12 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/15 15:52:30 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	store_sect(t_file **file, struct segment_command_64 *seg)
 	{
 		sect = malloc(sizeof(t_sect));
 		ft_strcpy(sect->sectname, (s64 + i)->sectname);
+		ft_strcpy(sect->segname, seg->segname);
 		sect->n_sect = 1;
 		sect->next = NULL;
 		if (!f->sect)
