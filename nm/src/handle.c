@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 17:20:29 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 15:38:50 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/15 16:14:27 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	nm_output(t_symbol *symbol)
 	{
 		if (symbol->type != '-' && symbol->type != 'N')
 		{
-			if (symbol->value)
+			if (symbol->type != 'u' && symbol->type != 'U' &&\
+				symbol->type != 'i' && symbol->type != 'I')
 				printf("%016llx", symbol->value);
 			else
 				printf("%s", "                ");

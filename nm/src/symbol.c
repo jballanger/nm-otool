@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:25:00 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 15:51:27 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/15 16:15:29 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ char	get_symbol_sect(t_sect *sect, uint8_t n_sect)
 			if (ft_strcmp(tmp->sectname, SECT_TEXT) == 0 &&\
 				ft_strcmp(tmp->segname, SEG_TEXT) == 0)
 				type = 't';
-			if (ft_strcmp(tmp->sectname, SECT_DATA) == 0 &&\
+			else if (ft_strcmp(tmp->sectname, SECT_DATA) == 0 &&\
 				ft_strcmp(tmp->segname, SEG_DATA) == 0)
 				type = 'd';
-			if (ft_strcmp(tmp->sectname, SECT_BSS) == 0 &&\
+			else if (ft_strcmp(tmp->sectname, SECT_BSS) == 0 &&\
 				ft_strcmp(tmp->segname, SEG_DATA) == 0)
 				type = 'b';
 			break ;
