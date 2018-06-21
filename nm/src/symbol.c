@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   symbol.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:25:00 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 19:22:01 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/21 11:47:45 by jballang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	get_symbol_type(struct nlist nlist, t_sect *sect)
 	{
 		type = nlist.n_type & N_TYPE;
 		if (type == N_UNDF)
-			type = (nlist.n_value != 0) ? 'c' : 'u';
+			type = (nlist.n_value != 0) ? 'c' : 'u'; // to swap
 		else if (type == N_PBUD)
 			type = 'u';
 		else if (type == N_ABS)
@@ -85,9 +85,9 @@ void	store_symbol(t_file **file, struct nlist nlist, char *s_table)
 
 	f = *file;
 	symbol = malloc(sizeof(t_symbol));
-	symbol->name = ft_strdup((s_table + nlist.n_un.n_strx));
+	symbol->name = ft_strdup((s_table + swap(nlist.n_un.n_strx, f->magic)));
 	symbol->type = get_symbol_type(nlist, f->sect);
-	symbol->value = nlist.n_value;
+	symbol->value = swap(nlist.n_value, f->magic);
 	symbol->next = NULL;
 	if (!f->symbol)
 		f->symbol = symbol;
@@ -102,9 +102,9 @@ void	process_symbol(t_file **file, struct symtab_command *symtab, char* ptr)
     char			*string_table;
 
 	i = 0;
-    symbol_table = (void*)ptr + symtab->symoff;
-    string_table = (void*)ptr + symtab->stroff;
-	while (i < symtab->nsyms && file)
+    symbol_table = (void*)ptr + swap(symtab->symoff, (*file)->magic);
+    string_table = (void*)ptr + swap(symtab->stroff, (*file)->magic);
+	while (i < swap(symtab->nsyms, (*file)->magic) && file)
 	{
 		store_symbol(file, symbol_table[i], string_table);
 		i += 1;

@@ -5,7 +5,8 @@ SRC_NAME = nm.c\
 			sect.c\
 			symbol.c\
 			symbol_64.c\
-			sort.c
+			sort.c\
+			swap.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/

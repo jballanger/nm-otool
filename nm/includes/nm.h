@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 19:20:22 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/21 12:58:23 by jballang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,21 @@ typedef struct			s_symbol
 	struct s_symbol		*next;
 }						t_symbol;
 
-typedef struct	s_file
+typedef struct		s_file
 {
-	t_sect		*sect;
-	t_symbol	*symbol;
-}				t_file;
+	t_sect			*sect;
+	t_symbol		*symbol;
+	unsigned int	magic;
+}					t_file;
 
-void	handle(char *ptr);
-void    handle_64(char *ptr);
-void	store_sect(t_file **file, struct segment_command *seg);
-void	store_sect_64(t_file **file, struct segment_command_64 *seg);
-void	process_symbol(t_file **file, struct symtab_command *symtab, char *ptr);
-void	process_symbol_64(t_file **file, struct symtab_command *symtab, char *ptr);
-void	sort_symbol(t_symbol **symbol);
+void		handle(char *ptr);
+void		handle_64(char *ptr);
+void		handle_fat(char *ptr, unsigned int magic_number);
+void		store_sect(t_file **file, struct segment_command *seg);
+void		store_sect_64(t_file **file, struct segment_command_64 *seg);
+void		process_symbol(t_file **file, struct symtab_command *symtab, char *ptr);
+void		process_symbol_64(t_file **file, struct symtab_command *symtab, char *ptr);
+void		sort_symbol(t_symbol **symbol);
+uint32_t	swap(uint32_t value, unsigned int magic);
 
 #endif

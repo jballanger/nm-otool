@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sect.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:24:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 19:16:00 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/21 11:42:04 by jballang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	store_sect(t_file **file, struct segment_command *seg)
 	i = 0;
 	f = *file;
 	s = (struct section*)((char*)seg + sizeof(struct segment_command));
-	while (i < seg->nsects)
+	while (i < swap(seg->nsects, f->magic))
 	{
 		sect = malloc(sizeof(t_sect));
 		ft_strcpy(sect->sectname, (s + i)->sectname);
@@ -63,7 +63,7 @@ void	store_sect_64(t_file **file, struct segment_command_64 *seg)
 	i = 0;
 	f = *file;
 	s64 = (struct section_64*)((char*)seg + sizeof(struct segment_command_64));
-	while (i < seg->nsects)
+	while (i < swap(seg->nsects, f->magic))
 	{
 		sect = malloc(sizeof(t_sect));
 		ft_strcpy(sect->sectname, (s64 + i)->sectname);

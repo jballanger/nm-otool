@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:36:14 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 19:28:48 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/21 10:25:53 by jballang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ void	ft_nm(char *name, int n)
 		ft_putendl(":");
 	}
 	if (IS_32(magic_number))
-		handle(ptr);
+		handle(ptr, magic_number);
 	else if (IS_64(magic_number))
-		handle_64(ptr);
+		handle_64(ptr, magic_number);
 	else if (IS_FAT_32(magic_number))
-		ft_putendl("handle fat 32");
+		handle_fat(ptr, magic_number);
 	else if (IS_FAT_64(magic_number))
 		ft_putendl("handle fat 64");
 }
