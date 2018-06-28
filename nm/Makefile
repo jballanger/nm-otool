@@ -1,11 +1,8 @@
 NAME = ft_nm
 LIBFT = lft
-SRC_NAME = nm.c\
+SRC_NAME = main.c\
+			nm.c\
 			handle.c\
-			sect.c\
-			symbol.c\
-			symbol_64.c\
-			sort.c\
 			swap.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC_PATH = ./src/

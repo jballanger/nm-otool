@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/22 10:33:07 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/28 14:50:40 by jballang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,17 @@ typedef struct			s_symbol
 
 typedef struct		s_file
 {
+	char			*name;
+	unsigned int	magic;
+	void			*ptr;
 	t_sect			*sect;
 	t_symbol		*symbol;
-	unsigned int	magic;
 }					t_file;
 
-void		handle(char *ptr);
-void		handle_64(char *ptr);
-void		handle_fat(char *ptr, unsigned int magic_number);
-void		store_sect(t_file **file, struct segment_command *seg);
-void		store_sect_64(t_file **file, struct segment_command_64 *seg);
-void		process_symbol(t_file **file, struct symtab_command *symtab, char *ptr);
-void		process_symbol_64(t_file **file, struct symtab_command *symtab, char *ptr);
-void		sort_symbol(t_symbol **symbol);
-uint32_t	swap(uint32_t value, unsigned int magic);
+void		ft_nm(t_file **file);
+void		handle_32(t_file **file);
+void		handle_64(t_file **file);
+uint32_t	swap_32(uint32_t value, unsigned int m);
+uint64_t	swap_64(uint64_t value, unsigned int m);
 
 #endif
