@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:07:47 by julien            #+#    #+#             */
-/*   Updated: 2018/06/15 14:22:17 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/22 10:36:37 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	swap_symbol(t_symbol **s1, t_symbol **s2)
 {
-	t_symbol			*tmp1;
-	t_symbol			*tmp2;
-	char				*name;
-	char				type;
-	unsigned long long value;
+	t_symbol	*tmp1;
+	t_symbol	*tmp2;
+	char		*name;
+	char		type;
+	uint32_t	value;
 
 	tmp1 = *s1;
 	tmp2 = *s2;

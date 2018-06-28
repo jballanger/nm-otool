@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 13:59:11 by jballang          #+#    #+#             */
-/*   Updated: 2018/05/17 15:19:22 by jballang         ###   ########.fr       */
+/*   Updated: 2018/06/22 11:00:51 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
 int					ft_wordlenc(const char *s, char c);
 int					ft_intlen(int n);
-int					ft_intlen_base(int n, int base);
+int					ft_intlen_base(long long int n, int base);
 int					ft_strintlen(const char *str);
 int					ft_isupper(int c);
 int					ft_islower(int c);

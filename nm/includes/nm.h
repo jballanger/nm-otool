@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/21 12:58:23 by jballang         ###   ########.fr       */
+/*   Updated: 2018/06/22 10:33:07 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct			s_symbol
 {
 	char				*name;
 	char				type;
-	unsigned long long	value;
+	uint32_t			value;
 	struct s_symbol		*next;
 }						t_symbol;
 

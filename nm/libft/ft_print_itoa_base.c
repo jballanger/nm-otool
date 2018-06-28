@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_itoa_base.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 13:56:03 by jballang          #+#    #+#             */
-/*   Updated: 2018/05/17 15:17:15 by jballang         ###   ########.fr       */
+/*   Updated: 2018/06/22 10:19:03 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_print_itoa_base(int n, int base)
 	while (n)
 	{
 		size -= 1;
-		str[size] = "0123456789ABCDEF"[n % base];
+		str[size] = "0123456789abcdef"[n % base];
 		n /= base;
 	}
 	ft_putstr(str);
