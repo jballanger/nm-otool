@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 13:40:10 by jballang          #+#    #+#             */
-/*   Updated: 2018/06/29 16:06:20 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/30 00:18:47 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	output_nm(t_file **file)
 		{
 			if (symbol->type != 'i' && symbol->type != 'I' &&
 				symbol->type != 'u' && symbol->type != 'U' &&
-				((*file)->arch == 32) ? symbol->value_32 != 0 : symbol->value_64 != 0)
+				(((*file)->arch == 32) ? symbol->value_32 != 0 : symbol->value_64 != 0))
 				print_value(symbol, (*file)->arch);
 			else
 				((*file)->arch == 32) ? ft_putstr("        ") : ft_putstr("                ");
