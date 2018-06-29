@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:24:54 by julien            #+#    #+#             */
-/*   Updated: 2018/06/29 15:47:11 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/30 00:17:03 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,19 @@ void	get_symbols_32(t_file **file, struct symtab_command *symtab)
 
 	i = 0;
 	symbol_table = (struct nlist*)((*file)->ptr + symtab->symoff);
+	check(file, symbol_table);
 	string_table = (char*)((*file)->ptr + symtab->stroff);
+	check(file, string_table);
 	while (i < swap_32(symtab->nsyms, (*file)->magic))
 	{
 		symbol = malloc(sizeof(t_symbol));
-		symbol->name = ft_strdup(string_table + swap_32(symbol_table[i].n_un.n_strx, (*file)->magic));
+		if (swap_32(symbol_table[i].n_un.n_strx, (*file)->magic) == 0)
+			symbol->name = "";
+		else if ((int)swap_32(symbol_table[i].n_un.n_strx, (*file)->magic) < 0 ||
+			swap_32(symbol_table[i].n_un.n_strx, (*file)->magic) > symtab->strsize)
+			symbol->name = ft_strdup("bad string index");
+		else
+			symbol->name = ft_strdup(string_table + swap_32(symbol_table[i].n_un.n_strx, (*file)->magic));
 		symbol->type = get_symbol_type(file, symbol_table[i].n_type, symbol_table[i].n_sect, symbol_table[i].n_value);
 		symbol->value_32 = symbol_table[i].n_value;
 		symbol->next = NULL;
@@ -110,11 +118,19 @@ void	get_symbols_64(t_file **file, struct symtab_command *symtab)
 
 	i = 0;
 	symbol_table = (struct nlist_64*)((*file)->ptr + symtab->symoff);
+	check(file, symbol_table);
 	string_table = (char*)((*file)->ptr + symtab->stroff);
+	check(file, string_table);
 	while (i < swap_32(symtab->nsyms, (*file)->magic))
 	{
 		symbol = malloc(sizeof(t_symbol));
-		symbol->name = ft_strdup(string_table + swap_32(symbol_table[i].n_un.n_strx, (*file)->magic));
+		if (swap_32(symbol_table[i].n_un.n_strx, (*file)->magic) == 0)
+			symbol->name = "";
+		else if ((int)swap_32(symbol_table[i].n_un.n_strx, (*file)->magic) < 0 ||
+			swap_32(symbol_table[i].n_un.n_strx, (*file)->magic) > symtab->strsize)
+			symbol->name = ft_strdup("bad string index");
+		else
+			symbol->name = ft_strdup(string_table + swap_32(symbol_table[i].n_un.n_strx, (*file)->magic));
 		symbol->type = get_symbol_type(file, symbol_table[i].n_type, symbol_table[i].n_sect, symbol_table[i].n_value);
 		symbol->value_64 = symbol_table[i].n_value;
 		symbol->next = NULL;
