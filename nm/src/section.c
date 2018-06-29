@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/29 12:02:12 by julien            #+#    #+#             */
-/*   Updated: 2018/06/29 15:47:19 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/29 23:40:36 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	get_sections_32(t_file **file, struct segment_command *segment)
 
 	i = 0;
 	section = (struct section*)((char*)segment + sizeof(struct segment_command));
+	check(file, section);
 	while (i < segment->nsects) // probably have to swap this
 	{
 		sect = malloc(sizeof(t_sect));
@@ -59,6 +60,7 @@ void	get_sections_64(t_file **file, struct segment_command_64 *segment)
 
 	i = 0;
 	section = (struct section_64*)((char*)segment + sizeof(struct segment_command_64));
+	check(file, section);
 	while (i < segment->nsects) // probably have to swap this
 	{
 		sect = malloc(sizeof(t_sect));

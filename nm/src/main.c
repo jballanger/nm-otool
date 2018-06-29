@@ -6,40 +6,45 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 13:39:42 by jballang          #+#    #+#             */
-/*   Updated: 2018/06/29 14:50:31 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/29 23:40:11 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nm.h"
 
-void	*get_ptr(char *name)
+void	map_file(t_file **file, char *filename)
 {
 	char		*ptr;
 	int			fd;
-	struct stat	file;
+	struct stat	stat;
 
-	if ((fd = open(name, O_RDONLY)) < 0)
+	if ((fd = open(filename, O_RDONLY)) < 0)
 	{
 		ft_putstr_fd("ft_nm: ", 2);
-		ft_putstr_fd(name, 2);
+		ft_putstr_fd(filename, 2);
 		ft_putendl_fd(": No such file or directory.", 2);
-		return (NULL);
+		return ;
 	}
-	if (fstat(fd, &file) < 0)
+	if (fstat(fd, &stat) < 0)
 	{
 		ft_putstr_fd("ft_nm: ", 2);
-		ft_putstr_fd(name, 2);
+		ft_putstr_fd(filename, 2);
 		ft_putendl_fd(": Couldn't obtain information.", 2);
-		return (NULL);
+		return ;
 	}
-	if ((ptr = mmap(0, file.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+	if ((ptr = mmap(0, stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 	{
 		ft_putstr_fd("ft_nm: ", 2);
-		ft_putstr_fd(name, 2);
+		ft_putstr_fd(filename, 2);
 		ft_putendl_fd(": Couldn't map.", 2);
-		return (NULL);
+		return ;
 	}
-	return (ptr);
+	(*file)->name = filename;
+	(*file)->size = stat.st_size;
+	(*file)->ptr = ptr;
+	(*file)->magic = *(unsigned int*)ptr;
+	(*file)->sect = NULL;
+	(*file)->symbol = NULL;
 }
 
 int		is_valid(t_file *file)
@@ -69,17 +74,16 @@ void	print_filename(t_file *file, int ac, int i)
 void	nm_init(char *filename, int ac, int i)
 {
 	t_file	*file;
-	void	*ptr;
 
-	if (!(ptr = get_ptr(filename)))
-		return ;
 	file = malloc(sizeof(t_file));
-	file->name = ft_strdup(filename);
-	file->magic = *(unsigned int*)ptr;
-	file->ptr = ptr;
-	file->sect = NULL;
-	file->symbol = NULL;
-	if (!(is_valid(file)))
+	file->ptr = NULL;
+	map_file(&file, filename);
+	//file->name = ft_strdup(filename);
+	//file->magic = *(unsigned int*)ptr;
+	//file->ptr = ptr;
+	//file->sect = NULL;
+	//file->symbol = NULL;
+	if (!file->ptr || !(is_valid(file)))
 		return ;
 	ft_nm(&file);
 	print_filename(file, ac, i);

@@ -6,7 +6,7 @@
 /*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/29 15:03:14 by julien           ###   ########.fr       */
+/*   Updated: 2018/06/29 23:31:05 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct			s_symbol
 typedef struct		s_file
 {
 	char			*name;
+	uint64_t		size;
 	char			arch;
 	unsigned int	magic;
 	void			*ptr;
@@ -64,5 +65,6 @@ void		get_symbols_64(t_file **file, struct symtab_command *symtab);
 void		sort_symbols(t_symbol **symbol, char arch);
 uint32_t	swap_32(uint32_t value, unsigned int m);
 uint64_t	swap_64(uint64_t value, unsigned int m);
+void		check(t_file **file, void *addr);
 
 #endif
