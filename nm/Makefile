@@ -3,6 +3,9 @@ LIBFT = lft
 SRC_NAME = main.c\
 			nm.c\
 			handle.c\
+			section.c\
+			symbol.c\
+			sort.c\
 			swap.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC_PATH = ./src/
@@ -13,7 +16,7 @@ OBJ = $(addprefix $(OBJ_PATH),$(OBJ_NAME))
 INC = $(addprefix -I,$(INC_PATH))
 CC = clang
 CPPFLAGS = -Iincludes
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 
 all: $(LIBFT) $(NAME)
 
@@ -21,7 +24,7 @@ lft:
 	$(MAKE) -C libft
 
 $(NAME): $(OBJ)
-	$(CC) $^ -o $@  -Llibft -lft
+	$(CC) $^ -o $@  -Llibft -lft -fsanitize=address
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p $(OBJ_PATH)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/28 13:39:42 by jballang          #+#    #+#             */
-/*   Updated: 2018/06/28 14:44:58 by jballang         ###   ########.fr       */
+/*   Updated: 2018/06/29 14:50:31 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	nm_init(char *filename, int ac, int i)
 	file->name = ft_strdup(filename);
 	file->magic = *(unsigned int*)ptr;
 	file->ptr = ptr;
+	file->sect = NULL;
+	file->symbol = NULL;
 	if (!(is_valid(file)))
 		return ;
 	ft_nm(&file);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nm.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jballang <jballang@student.42.fr>          +#+  +:+       +#+        */
+/*   By: julien <julien@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/08 16:30:33 by julien            #+#    #+#             */
-/*   Updated: 2018/06/28 14:50:40 by jballang         ###   ########.fr       */
+/*   Updated: 2018/06/29 15:03:14 by julien           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct		s_sect
 {
 	char			sectname[16];
 	char			segname[16];
-	int				n_sect;
+	uint32_t		n_sect;
 	struct s_sect	*next;
 }					t_sect;
 
@@ -39,13 +39,15 @@ typedef struct			s_symbol
 {
 	char				*name;
 	char				type;
-	uint32_t			value;
+	uint32_t			value_32;
+	uint64_t			value_64;
 	struct s_symbol		*next;
 }						t_symbol;
 
 typedef struct		s_file
 {
 	char			*name;
+	char			arch;
 	unsigned int	magic;
 	void			*ptr;
 	t_sect			*sect;
@@ -55,6 +57,11 @@ typedef struct		s_file
 void		ft_nm(t_file **file);
 void		handle_32(t_file **file);
 void		handle_64(t_file **file);
+void		get_sections_32(t_file **file, struct segment_command *seg);
+void		get_sections_64(t_file **file, struct segment_command_64 *segment);
+void		get_symbols_32(t_file **file, struct symtab_command *symtab);
+void		get_symbols_64(t_file **file, struct symtab_command *symtab);
+void		sort_symbols(t_symbol **symbol, char arch);
 uint32_t	swap_32(uint32_t value, unsigned int m);
 uint64_t	swap_64(uint64_t value, unsigned int m);
 
